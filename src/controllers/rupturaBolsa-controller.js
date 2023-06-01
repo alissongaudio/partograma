@@ -4,8 +4,7 @@ const ValidationContract = require('../validators/fluent-validator');''
 const repository = require('../repositories/rupturaBolsa-repository');
 const repositoryLiquidoAmniotico = require('../repositories/liquidoAmniotico-repository');
 const RupturaBolsa = require('../models/rupturaBolsa');
-const LiquidoAmniotico = require('../models/liquidoAmniotico');
-const { default: mongoose } = require('mongoose');
+const alertService = require('../services/alerta_antibioticoprofilaxia-service');
 const nameModel = 'Ruptura Bolsa';
 
 exports.get = async(req, res, next) => {
@@ -71,6 +70,9 @@ exports.post = async(req, res, next) => {
         message: 'Falha ao processar sua requisição:' + e.message,
         })
     }
+    finally{
+        alertService.insert(req.body.partogramaId,'dtHoraRompimentoBolsa',req.body.rupturaBolsaArray[0].dtEvento);
+    }
 };
 
 exports.put = async(req, res, next) => {
@@ -129,6 +131,9 @@ exports.put = async(req, res, next) => {
         res.status(500).send({
             message: 'Falha ao processar sua requisição:' + e.message,
         });
+    }
+    finally{
+        alertService.insert(req.body.partogramaId,'dtHoraRompimentoBolsa',req.body.rupturaBolsaArray[0].dtEvento);
     }
 };
 

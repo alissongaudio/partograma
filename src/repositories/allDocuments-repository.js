@@ -34,7 +34,7 @@ const posicaoFetalrepository = require('../repositories/posicaoFetal-repository'
 const posturarepository = require('../repositories/postura-repository');
 const rupturaBolsarepository = require('../repositories/rupturaBolsa-repository');
 const sangramentorepository = require('../repositories/sangramento-repository');
-const statusGBSrepository = require('../repositories/statusGBS-repository');
+const statusEGBrepository = require('../repositories/statusEGB-repository');
 const tipoGravidezrepository = require('../repositories/tipoGravidez-repository');
 const tipoPartorepository = require('../repositories/tipoParto-repository');
 const tipoSanguineorepository = require('../repositories/tipoSanguineo-repository');
@@ -73,7 +73,7 @@ exports.getByPartogramaId = async(partogramaId) => {
     const postura = await posturarepository.get(partogramaId);
     const rupturaBolsa = await rupturaBolsarepository.get(partogramaId);
     const sangramento = await sangramentorepository.get(partogramaId);
-    const statusGBS = await statusGBSrepository.get(partogramaId);
+    const statusEGB = await statusEGBrepository.get(partogramaId);
     const tipoGravidez = await tipoGravidezrepository.get(partogramaId);
     const tipoParto = await tipoPartorepository.get(partogramaId);
     const tipoSanguineo = await tipoSanguineorepository.get(partogramaId);
@@ -108,7 +108,7 @@ exports.getByPartogramaId = async(partogramaId) => {
     res.push(postura);
     res.push(rupturaBolsa);
     res.push(sangramento);
-    res.push(statusGBS);
+    res.push(statusEGB);
     res.push(tipoGravidez);
     res.push(tipoParto);
     res.push(tipoSanguineo);

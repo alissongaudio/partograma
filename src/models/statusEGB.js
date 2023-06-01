@@ -9,8 +9,8 @@ const schema = new Schema({
         ref: 'Partograma',
         required: true
     },
-    statusGBSArray: [{
-        statusGbsValue: {
+    statusEGBArray: [{
+        statusEGBValue: {
             type: String,
             require: true,
             enum: ['Positivo', 'Negativo', 'Desconhecido'],
@@ -18,6 +18,15 @@ const schema = new Schema({
         dtEvento: {
             type: Date,
             required: [true, 'A data do evento é obrigatória'],
+        },
+        doencaInvasiva: {
+            type: String
+        },
+        bacteriuria: {
+            type: String
+        },
+        febreIntraparto: {
+            type: String
         },
         observacao: {
             type: String
@@ -47,4 +56,4 @@ const schema = new Schema({
     }]
 });
 
-module.exports = mongoose.model('StatusGBS', schema);
+module.exports = mongoose.model('StatusEGB', schema);

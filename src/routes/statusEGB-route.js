@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/statusGBS-controller');
+const controller = require('../controllers/statusEGB-controller');
 
 router.get('/', controller.get);
 // router.get('/:id', controller.getById);

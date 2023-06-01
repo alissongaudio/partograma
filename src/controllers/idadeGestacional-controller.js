@@ -3,6 +3,7 @@
 const ValidationContract = require('../validators/fluent-validator');''
 const repository = require('../repositories/idadeGestacional-repository');
 const IdadeGestacional = require('../models/idadeGestacional');
+const alertService = require('../services/alerta_antibioticoprofilaxia-service');
 const nameModel = 'Idade gestacional';
 
 exports.get = async(req, res, next) => {
@@ -56,6 +57,10 @@ exports.post = async(req, res, next) => {
         res.status(500).send({
         message: 'Falha ao processar sua requisição:' + e.message,
         })
+    }
+    finally{
+        alertService.insert(req.body.partogramaId,'idadeGestacionalSemanas',req.body.idadeGestacionalArray[0].dumSemanas);
+        alertService.insert(req.body.partogramaId,'idadeGestacionalDias',req.body.idadeGestacionalArray[0].dumDias);
     }
 };
 
@@ -111,6 +116,10 @@ exports.put = async(req, res, next) => {
         res.status(500).send({
             message: 'Falha ao processar sua requisição:' + e.message,
         });
+    }
+    finally{
+        alertService.insert(req.body.partogramaId,'idadeGestacionalSemanas',req.body.idadeGestacionalArray[0].dumSemanas);
+        alertService.insert(req.body.partogramaId,'idadeGestacionalDias',req.body.idadeGestacionalArray[0].dumDias);
     }
 };
 

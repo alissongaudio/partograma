@@ -14,6 +14,7 @@ const MONGODB_URL = process.env.MONGODB_URL;
 mongoose.connect(MONGODB_URL);
 
 //Carrega os Models
+const AlertaAntibioticoprofilaxia = require('./models/alerta_antibioticoprofilaxia');
 const AmostraSangueFetal = require('./models/amostraSangueFetal');
 const Apgars = require('./models/apgars');
 const Companhia = require('./models/companhia');
@@ -50,7 +51,7 @@ const Postura = require('./models/postura');
 const RupturaBolsa = require('./models/rupturaBolsa');
 const Sangramaneto = require('./models/sangramento');
 const TipoGravidez = require('./models/tipoGravidez');
-const StatusGBS = require('./models/statusGBS');
+const StatusEGB = require('./models/statusEGB');
 const TipoParto = require('./models/tipoParto');
 const TipoSanguineo = require('./models/tipoSanguineo');
 
@@ -58,6 +59,7 @@ const TipoSanguineo = require('./models/tipoSanguineo');
 //Carrega as Rotas
 const indexRoute = require('./routes/index-route');
 
+const alerta_antibioticoprofilaxiaRoute = require('./routes/alerta_antibioticoprofilaxia-route')
 const allDocumentsRoute = require('./routes/allDocuments-route')
 const amostraSangueFetalRoute = require('./routes/amostraSangueFetal-route')
 const apgarsRoute = require('./routes/apgars-route')
@@ -94,8 +96,8 @@ const posicaoFetalRoute = require('./routes/posicaoFetal-route')
 const posturaRoute = require('./routes/postura-route')
 const rupturaBolsaRoute = require('./routes/rupturaBolsa-route')
 const sangramentoRoute = require('./routes/sangramaneto-route')
+const statusEGBRoute = require('./routes/statusEGB-route')
 const tipoGravidezRoute = require('./routes/tipoGravidez-route')
-const statusGBSRoute = require('./routes/statusGBS-route')
 const tipoPartoRoute = require('./routes/tipoParto-route')
 const tipoSanguineoRoute = require('./routes/tipoSanguineo-route')
 
@@ -116,6 +118,7 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRoute);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/alertaAntibioticoprofilaxia', alerta_antibioticoprofilaxiaRoute);
 app.use('/allDocuments', allDocumentsRoute);
 app.use('/amostraSangueFetal', amostraSangueFetalRoute);
 app.use('/apgars', apgarsRoute);
@@ -153,7 +156,7 @@ app.use('/postura', posturaRoute);
 app.use('/rupturaBolsa', rupturaBolsaRoute);
 app.use('/sangramento', sangramentoRoute);
 app.use('/tipoGravidez', tipoGravidezRoute);
-app.use('/statusGBS', statusGBSRoute);
+app.use('/statusEGB', statusEGBRoute);
 app.use('/tipoParto', tipoPartoRoute);
 app.use('/tipoSanguineo', tipoSanguineoRoute);
 
