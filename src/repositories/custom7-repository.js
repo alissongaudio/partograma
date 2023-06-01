@@ -72,7 +72,7 @@ exports.create = async(data) => {
 exports.update = async(id, partogramaId, data) => {
     var custom7 = new Custom7(data);
     const res = await Custom7.findOneAndUpdate(
-        {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+        {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
         {
             $push: {
                 custom7Array: {
@@ -113,7 +113,7 @@ exports.updateAndCancel = async(id, partogramaId, data, idArray, user) => {
     try{
         var custom7 = new Custom7(data);
         const res = await Custom7.findOneAndUpdate(
-            {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+            {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
             {
                 $push: {
                     custom7Array: {

@@ -17,23 +17,16 @@ exports.getByPartogramaId = async(partogramaId) => {
 
 exports.insert = (partogramaId, key, value) => {
     try{
-
-        //var result = await repository.getPartogramaId(partogramaId)
-        //console.log(result);
-        //return result;
-
         var result = repository.update(partogramaId, key, value)
+    }
+    catch(e){
+        return 'Falha ao processar sua requisição:' + e.message;
+    }
+};
 
-        // if(result){
-        //     var result = await repository.update(partogramaId, key, value)
-        //     return 'IF';
-        // }
-        // else{
-
-        //     var result = await repository.update(partogramaId, key, value)
-        //     return 'ELSE';
-        // }
-
+exports.checkRule = (partogramaId) => {
+    try{
+        var result = repository.getPartogramaId(partogramaId)
     }
     catch(e){
         return 'Falha ao processar sua requisição:' + e.message;

@@ -65,7 +65,7 @@ exports.create = async(data) => {
 exports.update = async(id, data) => {
     var paciente = new Paciente(data);
     const res = await Paciente.findOneAndUpdate(
-        {_id: {$gte: id}},
+        {_id: {$eq: id}},
         {
             $push: {
                 pacienteArray: {
@@ -108,7 +108,7 @@ exports.updateAndCancel = async(IdPaciente, data, id, user) => {
     try{
         var paciente = new Paciente(data);
         await Paciente.findOneAndUpdate(
-            {_id: {$gte: IdPaciente}},
+            {_id: {$eq: IdPaciente}},
             {
                 $push: {
                     pacienteArray: {

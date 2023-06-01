@@ -72,7 +72,7 @@ exports.create = async(data) => {
 exports.update = async(id, partogramaId, data) => {
     var tipoSanguineo = new TipoSanguineo(data);
     const res = await TipoSanguineo.findOneAndUpdate(
-        {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+        {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
         {
             $push: {
                 tipoSanguineoArray: {
@@ -114,7 +114,7 @@ exports.updateAndCancel = async(id, partogramaId, data, idArray, user) => {
     try{
         var tipoSanguineo = new TipoSanguineo(data);
         const res = await TipoSanguineo.findOneAndUpdate(
-            {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+            {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
             {
                 $push: {
                     tipoSanguineoArray: {

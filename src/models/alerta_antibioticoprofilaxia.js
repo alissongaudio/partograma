@@ -32,7 +32,13 @@ const schema = new Schema({
     },
     febreIntraparto: {
         type: String
-    }
+    },
+    alertaEnviado: {
+        type: Boolean
+    },
+    dtUltimaAtualizacao: {
+        type: Date
+    },
 });
 
 module.exports = mongoose.model('AlertaAntibioticoprofilaxia', schema);

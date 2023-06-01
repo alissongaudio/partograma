@@ -76,8 +76,8 @@ exports.update = async(id, partogramaId, data) => {
     var ocitocina = new Ocitocina(data);
     const res = await Ocitocina.findOneAndUpdate(
         {
-            _id: {$gte: id},
-            partogramaId: {$gte: partogramaId}
+            _id: {$eq: id},
+            partogramaId: {$eq: partogramaId}
         },
         {
             $push: {
@@ -128,8 +128,8 @@ exports.updateAndCancel = async(id, partogramaId, data, idArray, user) => {
         var ocitocina = new Ocitocina(data);
         const res = await Ocitocina.findOneAndUpdate(
             {
-                partogramaId: {$gte: partogramaId},
-                _id: {$gte: id}
+                partogramaId: {$eq: partogramaId},
+                _id: {$eq: id}
             },
             {
                 $push: {

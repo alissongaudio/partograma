@@ -72,7 +72,7 @@ exports.create = async(data) => {
 exports.update = async(id, partogramaId, data) => {
     var custom1 = new Custom1(data);
     const res = await Custom1.findOneAndUpdate(
-        {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+        {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
         {
             $push: {
                 custom1Array: {
@@ -113,7 +113,7 @@ exports.updateAndCancel = async(id, partogramaId, data, idArray, user) => {
     try{
         var custom1 = new Custom1(data);
         const res = await Custom1.findOneAndUpdate(
-            {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+            {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
             {
                 $push: {
                     custom1Array: {

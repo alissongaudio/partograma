@@ -72,7 +72,7 @@ exports.create = async(data) => {
 exports.update = async(id, partogramaId, data) => {
     var sangramento = new Sangramento(data);
     const res = await Sangramento.findOneAndUpdate(
-        {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+        {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
         {
             $push: {
                 sangramentoArray: {
@@ -115,7 +115,7 @@ exports.updateAndCancel = async(id, partogramaId, data, idArray, user) => {
     try{
         var sangramento = new Sangramento(data);
         const res = await Sangramento.findOneAndUpdate(
-            {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+            {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
             {
                 $push: {
                     sangramentoArray: {

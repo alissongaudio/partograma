@@ -76,8 +76,8 @@ exports.update = async(id, partogramaId, data) => {
     var monitoramentoCardiacoBebe = new MonitoramentoCardiacoBebe(data);
     const res = await MonitoramentoCardiacoBebe.findOneAndUpdate(
         {
-            _id: {$gte: id},
-            partogramaId: {$gte: partogramaId}
+            _id: {$eq: id},
+            partogramaId: {$eq: partogramaId}
         },
         {
             $push: {
@@ -126,8 +126,8 @@ exports.updateAndCancel = async(id, partogramaId, data, idArray, user) => {
         var monitoramentoCardiacoBebe = new MonitoramentoCardiacoBebe(data);
         const res = await MonitoramentoCardiacoBebe.findOneAndUpdate(
             {
-                partogramaId: {$gte: partogramaId},
-                _id: {$gte: id}
+                partogramaId: {$eq: partogramaId},
+                _id: {$eq: id}
             },
             {
                 $push: {

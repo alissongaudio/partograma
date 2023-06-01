@@ -72,7 +72,7 @@ exports.create = async(data) => {
 exports.update = async(id, partogramaId, data) => {
     var dataHoraPlacenta = new DataHoraPlacenta(data);
     const res = await DataHoraPlacenta.findOneAndUpdate(
-        {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+        {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
         {
             $push: {
                 dataHoraPlacentaArray: {
@@ -114,7 +114,7 @@ exports.updateAndCancel = async(id, partogramaId, data, idArray, user) => {
     try{
         var dataHoraPlacenta = new DataHoraPlacenta(data);
         const res = await DataHoraPlacenta.findOneAndUpdate(
-            {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+            {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
             {
                 $push: {
                     dataHoraPlacentaArray: {

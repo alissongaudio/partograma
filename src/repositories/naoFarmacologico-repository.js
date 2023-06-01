@@ -72,7 +72,7 @@ exports.create = async(data) => {
 exports.update = async(id, partogramaId, data) => {
     var naoFarmacologico = new NaoFarmacologico(data);
     const res = await NaoFarmacologico.findOneAndUpdate(
-        {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+        {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
         {
             $push: {
                 naoFarmacologicoArray: {
@@ -114,7 +114,7 @@ exports.updateAndCancel = async(id, partogramaId, data, idArray, user) => {
     try{
         var naoFarmacologico = new NaoFarmacologico(data);
         const res = await NaoFarmacologico.findOneAndUpdate(
-            {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+            {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
             {
                 $push: {
                     naoFarmacologicoArray: {

@@ -72,7 +72,7 @@ exports.create = async(data) => {
 exports.update = async(id, partogramaId, data) => {
     var posicaoFetal = new PosicaoFetal(data);
     const res = await PosicaoFetal.findOneAndUpdate(
-        {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+        {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
         {
             $push: {
                 posicaoFetalArray: {
@@ -117,7 +117,7 @@ exports.updateAndCancel = async(id, partogramaId, data, idArray, user) => {
     try{
         var posicaoFetal = new PosicaoFetal(data);
         const res = await PosicaoFetal.findOneAndUpdate(
-            {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+            {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
             {
                 $push: {
                     posicaoFetalArray: {

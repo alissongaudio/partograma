@@ -85,7 +85,7 @@ exports.createGemelar = async(data) => {
 exports.update = async(id, partogramaId, data) => {
     var rupturaBolsa = new RupturaBolsa(data);
     const res = await RupturaBolsa.findOneAndUpdate(
-        {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+        {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
         {
             $push: {
                 rupturaBolsaArray: {
@@ -132,7 +132,7 @@ exports.updateAndCancel = async(id, partogramaId, data, idArray, user) => {
     try{
         var rupturaBolsa = new RupturaBolsa(data);
         const res = await RupturaBolsa.findOneAndUpdate(
-            {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+            {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
             {
                 $push: {
                     rupturaBolsaArray: {

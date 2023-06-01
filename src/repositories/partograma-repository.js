@@ -70,7 +70,7 @@ exports.getByCreatedAt = async() => {
     const today = formatToday(new Date());
     const res = await Partograma.find(
         {
-        dtCadastro :{$gte:yesterday, $lt:today}
+        dtCadastro :{$eq:yesterday, $lt:today}
         }
     );
     return res;
@@ -88,7 +88,7 @@ exports.update = async(id, data) => {
     var partograma = new Partograma(data);
     const res = await Partograma.findOneAndUpdate(
         {
-            _id: {$gte: id},
+            _id: {$eq: id},
         },
         {
             $push: {
@@ -140,7 +140,7 @@ exports.updateAndCancel = async(id, data, idArray, user) => {
         var partograma = new Partograma(data);
         const res = await Partograma.findOneAndUpdate(
             {
-                _id: {$gte: id}
+                _id: {$eq: id}
             },
             {
                 $push: {

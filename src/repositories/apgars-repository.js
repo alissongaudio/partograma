@@ -72,7 +72,7 @@ exports.create = async(data) => {
 exports.update = async(id, partogramaId, data) => {
     var apgars = new Apgars(data);
     const res = await Apgars.findOneAndUpdate(
-        {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+        {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
         {
             $push: {
                 apgarsArray: {
@@ -115,7 +115,7 @@ exports.updateAndCancel = async(id, partogramaId, data, idArray, user) => {
     try{
         var apgars = new Apgars(data);
         const res = await Apgars.findOneAndUpdate(
-            {_id: {$gte: id}, partogramaId: {$gte: partogramaId}},
+            {_id: {$eq: id}, partogramaId: {$eq: partogramaId}},
             {
                 $push: {
                     apgarsArray: {

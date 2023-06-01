@@ -5,18 +5,18 @@ const service = require('../services/alerta_antibioticoprofilaxia-service');
 const AlertaAntibioticoprofilaxia = require('../models/alerta_antibioticoprofilaxia');
 const nameModel = 'AlertaAntibioticoprofilaxia';
 
-exports.get = async(req, res, next) => {
-    try{
-        var data = await service.get(req.params.partogramaId);
-        res.status(200).send(data);
-    }
-    catch(e){
-        res.status(400).send({
-            message: 'Falha ao processar sua requisição:' + e.message,
+// exports.get = async(req, res, next) => {
+//     try{
+//         var data = await service.get(req.params.partogramaId);
+//         res.status(200).send(data);
+//     }
+//     catch(e){
+//         res.status(400).send({
+//             message: 'Falha ao processar sua requisição:' + e.message,
 
-        });
-    }
-};
+//         });
+//     }
+// };
 
 exports.getByPartogramaId = async(req, res, next) => {
     try{
