@@ -15,6 +15,7 @@ mongoose.connect(MONGODB_URL);
 
 //Carrega os Models
 const AlertaAntibioticoprofilaxia = require('./models/alerta_antibioticoprofilaxia');
+const AlertaExpulsivoProlongado = require('./models/alerta_expulsivoProlongado');
 const AmostraSangueFetal = require('./models/amostraSangueFetal');
 const Apgars = require('./models/apgars');
 const Companhia = require('./models/companhia');
@@ -60,6 +61,7 @@ const TipoSanguineo = require('./models/tipoSanguineo');
 const indexRoute = require('./routes/index-route');
 
 const alerta_antibioticoprofilaxiaRoute = require('./routes/alerta_antibioticoprofilaxia-route')
+const alerta_expulsivoProlongadoRoute = require('./routes/alerta_expulsivoProlongado-route')
 const allDocumentsRoute = require('./routes/allDocuments-route')
 const amostraSangueFetalRoute = require('./routes/amostraSangueFetal-route')
 const apgarsRoute = require('./routes/apgars-route')
@@ -119,6 +121,7 @@ app.use(function (req, res, next) {
 app.use('/', indexRoute);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/alertaAntibioticoprofilaxia', alerta_antibioticoprofilaxiaRoute);
+app.use('/alertaExpulsivoProlongado', alerta_expulsivoProlongadoRoute);
 app.use('/allDocuments', allDocumentsRoute);
 app.use('/amostraSangueFetal', amostraSangueFetalRoute);
 app.use('/apgars', apgarsRoute);

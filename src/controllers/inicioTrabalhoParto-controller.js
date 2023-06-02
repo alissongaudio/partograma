@@ -57,6 +57,7 @@ exports.post = async(req, res, next) => {
     }
     finally{
         alertService.insert(req.body.partogramaId,'inicioTrabalhoParto',req.body.inicioTrabalhoPartoArray[0].dtEvento);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 
@@ -111,6 +112,7 @@ exports.put = async(req, res, next) => {
     }
     finally{
         alertService.insert(req.body.partogramaId,'inicioTrabalhoParto',req.body.inicioTrabalhoPartoArray[0].dtEvento);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 

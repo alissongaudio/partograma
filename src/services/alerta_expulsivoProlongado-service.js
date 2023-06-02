@@ -1,7 +1,7 @@
 'use strict';
 
-const repository = require('../repositories/alerta_antibioticoprofilaxia-repository');
-const AlertaAntibioticoprofilaxia = require('../models/alerta_antibioticoprofilaxia');
+const repository = require('../repositories/alerta_expulsivo-repository');
+const AlertaExpulsivoProlongado = require('../models/alerta_expulsivoProlongado');
 
 exports.getByPartogramaId = async(partogramaId) => {
     try{
@@ -25,30 +25,22 @@ exports.insert = (partogramaId, key, value) => {
 exports.checkRule = async (partogramaId) => {
     try{
         const result = await repository.getPartogramaId(partogramaId)
-        var obj = new AlertaAntibioticoprofilaxia(result);
+        var obj = new AlertaExpulsivoProlongado(result);
         
         if(
-            (
-                (isNotNullOrEmpty(obj.inicioTrabalhoParto) || isNotNullOrEmpty(obj.dtHoraRompimentoBolsa))
-            ) &&
-            (
-                 (obj.statusEGB === 'Positivo') ||
-                 (obj.statusEGB === 'Negativo' && (obj.doencaInvasiva === true || obj.bacteriuria === true)) ||
-                 (obj.statusEGB === 'Desconhecido' && ((obj.doencaInvasiva === true || obj.bacteriuria === true || obj.febreIntraparto === true || horasBolsa(obj.dtHoraRompimentoBolsa) >= 18 || obj.idadeGestacionalSemanas < '37')))
-            )
+            (isNotNullOrEmpty(obj.p) && obj.p === 0 && obj.dilatacao === 10 && horasDilatacao(obj.dtDilatacao) >= 3 && !isNotNullOrEmpty(obj.dtNascimento)) ||
+            (isNotNullOrEmpty(obj.p) && obj.p >= 1 && obj.dilatacao === 10 && horasDilatacao(obj.dtDilatacao) >= 2 && !isNotNullOrEmpty(obj.dtNascimento))
           ){
                 const res = await repository.updateAlert(partogramaId);
                 return res;
             }
-
-            return result;
     }
     catch(e){
         return 'Falha ao processar sua requisição:' + e.message;
     }
 };
 
-function horasBolsa(dt){
+function horasDilatacao(dt){
     const date1 = new Date(Date.now());
     const date2 = new Date(dt);
 

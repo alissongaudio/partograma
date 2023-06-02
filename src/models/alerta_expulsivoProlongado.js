@@ -9,29 +9,17 @@ const schema = new Schema({
         ref: 'Partograma',
         required: true
     },
-    inicioTrabalhoParto: {
+    p: {
         type: String
     },
-    dtHoraRompimentoBolsa: {
+    dilatacao: {
+        type: Number
+    },
+    dtDilatacao: {
         type: Date
     },
-    idadeGestacionalSemanas: {
-        type: String
-    },
-    idadeGestacionalDias: {
-        type: String
-    },
-    statusEGB: {
-        type: String
-    },
-    doencaInvasiva: {
-        type: Boolean
-    },
-    bacteriuria: {
-        type: Boolean
-    },
-    febreIntraparto: {
-        type: Boolean
+    dtNascimento: {
+        type: Date
     },
     enviarAlerta: {
         type: Boolean
@@ -44,4 +32,4 @@ const schema = new Schema({
     },
 });
 
-module.exports = mongoose.model('AlertaAntibioticoprofilaxia', schema);
+module.exports = mongoose.model('AlertaExpulsivoProlongado', schema);

@@ -61,6 +61,7 @@ exports.post = async(req, res, next) => {
         alertService.insert(req.body.partogramaId,'doencaInvasiva',req.body.statusEGBArray[0].doencaInvasiva);
         alertService.insert(req.body.partogramaId,'bacteriuria',req.body.statusEGBArray[0].bacteriuria);
         alertService.insert(req.body.partogramaId,'febreIntraparto',req.body.statusEGBArray[0].febreIntraparto);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 
@@ -120,6 +121,7 @@ exports.put = async(req, res, next) => {
         alertService.insert(req.body.partogramaId,'doencaInvasiva',req.body.statusEGBArray[0].doencaInvasiva ? req.body.statusEGBArray[0].doencaInvasiva : null);
         alertService.insert(req.body.partogramaId,'bacteriuria',req.body.statusEGBArray[0].bacteriuria ? req.body.statusEGBArray[0].bacteriuria : null);
         alertService.insert(req.body.partogramaId,'febreIntraparto',req.body.statusEGBArray[0].febreIntraparto ? req.body.statusEGBArray[0].febreIntraparto : null);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 

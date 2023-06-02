@@ -71,7 +71,8 @@ exports.post = async(req, res, next) => {
         })
     }
     finally{
-        alertService.insert(req.body.partogramaId,'dtHoraRompimentoBolsa',req.body.rupturaBolsaArray[0].dtEvento);
+       await alertService.insert(req.body.partogramaId,'dtHoraRompimentoBolsa',req.body.rupturaBolsaArray[0].dtEvento);
+       alertService.checkRule(req.body.partogramaId);
     }
 };
 
@@ -134,6 +135,7 @@ exports.put = async(req, res, next) => {
     }
     finally{
         alertService.insert(req.body.partogramaId,'dtHoraRompimentoBolsa',req.body.rupturaBolsaArray[0].dtEvento);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 

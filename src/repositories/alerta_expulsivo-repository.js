@@ -1,25 +1,25 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const AlertaAntibioticoprofilaxia = mongoose.model('AlertaAntibioticoprofilaxia');
+const AlertaExpulsivoProlongado = mongoose.model('AlertaExpulsivoProlongado');
 
 exports.getPartogramaId = async(partogramaId) => {
-    const res = await AlertaAntibioticoprofilaxia.findOne(
+    const res = await AlertaExpulsivoProlongado.findOne(
         {partogramaId: {$eq: partogramaId}}
     );
     return res;
 };
 
 exports.create = async(data) => {
-    var alertaAntibioticoprofilaxia = new AlertaAntibioticoprofilaxia(data);
-    alertaAntibioticoprofilaxia.dtUltimaAtualizacao = new Date(Date.now()) ;
-    const res = await alertaAntibioticoprofilaxia.save();
+    var alertaExpulsivoProlongado = new AlertaExpulsivoProlongado(data);
+    alertaExpulsivoProlongado.dtUltimaAtualizacao = new Date(Date.now()) ;
+    const res = await alertaExpulsivoProlongado.save();
     return res;
 };
 
 exports.update = async(partogramaId, key, value) => {
     const fieldName = key;
-    const res = await AlertaAntibioticoprofilaxia.findOneAndUpdate(
+    const res = await AlertaExpulsivoProlongado.findOneAndUpdate(
         {partogramaId: {$eq: partogramaId}},
         {
             $set: {
@@ -28,25 +28,19 @@ exports.update = async(partogramaId, key, value) => {
                 [fieldName]: value
             }
         },
-        {
-            upsert: true,
-            returnDocument:"after",
-        }
+        {upsert: true}
     );
     return res;
 };
 
 exports.updateAlert = async(partogramaId) => {
-    const res = await AlertaAntibioticoprofilaxia.findOneAndUpdate(
+    const res = await AlertaExpulsivoProlongado.findOneAndUpdate(
         {partogramaId: {$eq: partogramaId}},
         {
             $set: {
                 dtUltimaAtualizacao : new Date(Date.now()),
                 enviarAlerta : true
             }
-        },
-        {
-            returnDocument:"after",
         }
     );
     return res;

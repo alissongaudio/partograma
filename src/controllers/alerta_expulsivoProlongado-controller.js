@@ -1,6 +1,6 @@
 'use strict';
 
-const service = require('../services/alerta_antibioticoprofilaxia-service');
+const service = require('../services/alerta_expulsivoProlongado-service');
 
 exports.getByPartogramaId = async(req, res, next) => {
     try{

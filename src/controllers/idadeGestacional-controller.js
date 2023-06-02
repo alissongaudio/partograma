@@ -61,6 +61,7 @@ exports.post = async(req, res, next) => {
     finally{
         alertService.insert(req.body.partogramaId,'idadeGestacionalSemanas',req.body.idadeGestacionalArray[0].dumSemanas);
         alertService.insert(req.body.partogramaId,'idadeGestacionalDias',req.body.idadeGestacionalArray[0].dumDias);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 
@@ -120,6 +121,7 @@ exports.put = async(req, res, next) => {
     finally{
         alertService.insert(req.body.partogramaId,'idadeGestacionalSemanas',req.body.idadeGestacionalArray[0].dumSemanas);
         alertService.insert(req.body.partogramaId,'idadeGestacionalDias',req.body.idadeGestacionalArray[0].dumDias);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 
