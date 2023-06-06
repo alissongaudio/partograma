@@ -3,6 +3,7 @@
 const ValidationContract = require('../validators/fluent-validator');''
 const repository = require('../repositories/dilatacaoCervical-repository');
 const DilatacaoCervical = require('../models/dilatacaoCervical');
+const alertService = require('../services/alerta_expulsivoProlongado-service');
 const nameModel = 'DilatacaoCervical';
 
 exports.get = async(req, res, next) => {
@@ -56,6 +57,11 @@ exports.post = async(req, res, next) => {
         res.status(500).send({
         message: 'Falha ao processar sua requisição:' + e.message,
         })
+    }
+    finally{
+        alertService.insert(req.body.partogramaId,'dilatacao',req.body.dilatacaoCervicalArray[0].dilatacao);
+        alertService.insert(req.body.partogramaId,'dtDilatacao',req.body.dilatacaoCervicalArray[0].dtEvento);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 
@@ -111,6 +117,11 @@ exports.put = async(req, res, next) => {
         res.status(500).send({
             message: 'Falha ao processar sua requisição:' + e.message,
         });
+    }
+    finally{
+        alertService.insert(req.body.partogramaId,'dilatacao',req.body.dilatacaoCervicalArray[0].dilatacao);
+        alertService.insert(req.body.partogramaId,'dtDilatacao',req.body.dilatacaoCervicalArray[0].dtEvento);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 

@@ -25,15 +25,35 @@ exports.insert = (partogramaId, key, value) => {
 exports.checkRule = async (partogramaId) => {
     try{
         const result = await repository.getPartogramaId(partogramaId)
-        var obj = new AlertaExpulsivoProlongado(result);
-        
-        if(
-            (isNotNullOrEmpty(obj.p) && obj.p === 0 && obj.dilatacao === 10 && horasDilatacao(obj.dtDilatacao) >= 3 && !isNotNullOrEmpty(obj.dtNascimento)) ||
-            (isNotNullOrEmpty(obj.p) && obj.p >= 1 && obj.dilatacao === 10 && horasDilatacao(obj.dtDilatacao) >= 2 && !isNotNullOrEmpty(obj.dtNascimento))
-          ){
-                const res = await repository.updateAlert(partogramaId);
+
+        if (result){
+            var obj = new AlertaExpulsivoProlongado(result);
+              
+            if(
+                (isNotNullOrEmpty(obj.p) && obj.p === 0 && obj.dilatacao === 10 && horasDilatacao(obj.dtDilatacao) >= 3 && !isNotNullOrEmpty(obj.dtNascimento)) ||
+                (isNotNullOrEmpty(obj.p) && obj.p >= 1 && obj.dilatacao === 10 && horasDilatacao(obj.dtDilatacao) >= 2 && !isNotNullOrEmpty(obj.dtNascimento))
+              ){
+                    const res = await repository.updateSendAlert(partogramaId, true);
+                    return res;
+                }
+            else{
+                const res = await repository.updateSendAlert(partogramaId, false);
                 return res;
             }
+        }
+        else{
+            return result;
+        }
+
+    }
+    catch(e){
+        return 'Falha ao processar sua requisição:' + e.message;
+    }
+};
+
+exports.updateAlertSent = (partogramaId, id) => {
+    try{
+        var result = repository.updateAlertSent(partogramaId, id)
     }
     catch(e){
         return 'Falha ao processar sua requisição:' + e.message;

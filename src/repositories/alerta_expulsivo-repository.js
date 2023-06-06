@@ -5,7 +5,7 @@ const AlertaExpulsivoProlongado = mongoose.model('AlertaExpulsivoProlongado');
 
 exports.getPartogramaId = async(partogramaId) => {
     const res = await AlertaExpulsivoProlongado.findOne(
-        {partogramaId: {$eq: partogramaId}}
+        {partogramaId: {$eq: partogramaId}, alertaEnviado: false}
     );
     return res;
 };
@@ -28,19 +28,41 @@ exports.update = async(partogramaId, key, value) => {
                 [fieldName]: value
             }
         },
-        {upsert: true}
+        {
+            upsert: true,
+            returnDocument:"after",
+        }
     );
     return res;
 };
 
-exports.updateAlert = async(partogramaId) => {
+exports.updateSendAlert = async(partogramaId, value) => {
     const res = await AlertaExpulsivoProlongado.findOneAndUpdate(
         {partogramaId: {$eq: partogramaId}},
         {
             $set: {
                 dtUltimaAtualizacao : new Date(Date.now()),
-                enviarAlerta : true
+                enviarAlerta : value
             }
+        },
+        {
+            returnDocument:"after",
+        }
+    );
+    return res;
+};
+
+exports.updateAlertSent = async(partogramaId, id) => {
+    const res = await AlertaExpulsivoProlongado.findOneAndUpdate(
+        {partogramaId: {$eq: partogramaId}, _id: {$eq: id}},
+        {
+            $set: {
+                dtUltimaAtualizacao : new Date(Date.now()),
+                alertaEnviado : true
+            }
+        },
+        {
+            returnDocument:"after",
         }
     );
     return res;

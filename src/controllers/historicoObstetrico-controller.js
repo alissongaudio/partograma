@@ -3,6 +3,7 @@
 const ValidationContract = require('../validators/fluent-validator');''
 const repository = require('../repositories/historicoObstetrico-repository');
 const HistoricoObstetrico = require('../models/historicoObstetrico');
+const alertService = require('../services/alerta_expulsivoProlongado-service');
 const nameModel = 'Historico Obstetrico';
 
 exports.get = async(req, res, next) => {
@@ -57,6 +58,10 @@ exports.post = async(req, res, next) => {
         res.status(500).send({
         message: 'Falha ao processar sua requisição:' + e.message,
         })
+    }
+    finally{
+        alertService.insert(req.body.partogramaId,'p',req.body.historicoObstetricoArray[0].p);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 
@@ -113,6 +118,10 @@ exports.put = async(req, res, next) => {
         res.status(500).send({
             message: 'Falha ao processar sua requisição:' + e.message,
         });
+    }
+    finally{
+        alertService.insert(req.body.partogramaId,'p',req.body.historicoObstetricoArray[0].p);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 

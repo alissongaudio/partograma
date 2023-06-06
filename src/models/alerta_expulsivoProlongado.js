@@ -10,7 +10,7 @@ const schema = new Schema({
         required: true
     },
     p: {
-        type: String
+        type: Number
     },
     dilatacao: {
         type: Number

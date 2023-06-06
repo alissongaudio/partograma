@@ -3,6 +3,7 @@
 const ValidationContract = require('../validators/fluent-validator');''
 const repository = require('../repositories/nascimento-repository');
 const Nascimento = require('../models/nascimento');
+const alertService = require('../services/alerta_expulsivoProlongado-service');
 const nameModel = 'Nascimento';
 
 exports.get = async(req, res, next) => {
@@ -53,6 +54,10 @@ exports.post = async(req, res, next) => {
         res.status(500).send({
         message: 'Falha ao processar sua requisição:' + e.message,
         })
+    }
+    finally{
+        alertService.insert(req.body.partogramaId,'dtNascimento',req.body.nascimentoArray[0].dtEvento);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 
@@ -105,6 +110,10 @@ exports.put = async(req, res, next) => {
         res.status(500).send({
             message: 'Falha ao processar sua requisição:' + e.message,
         });
+    }
+    finally{
+        alertService.insert(req.body.partogramaId,'dtNascimento',req.body.nascimentoArray[0].dtEvento);
+        alertService.checkRule(req.body.partogramaId);
     }
 };
 

@@ -5,7 +5,7 @@ const AlertaAntibioticoprofilaxia = mongoose.model('AlertaAntibioticoprofilaxia'
 
 exports.getPartogramaId = async(partogramaId) => {
     const res = await AlertaAntibioticoprofilaxia.findOne(
-        {partogramaId: {$eq: partogramaId}}
+        {partogramaId: {$eq: partogramaId}, alertaEnviado: false}
     );
     return res;
 };
@@ -36,13 +36,29 @@ exports.update = async(partogramaId, key, value) => {
     return res;
 };
 
-exports.updateAlert = async(partogramaId) => {
+exports.updateSendAlert = async(partogramaId, value) => {
     const res = await AlertaAntibioticoprofilaxia.findOneAndUpdate(
         {partogramaId: {$eq: partogramaId}},
         {
             $set: {
                 dtUltimaAtualizacao : new Date(Date.now()),
-                enviarAlerta : true
+                enviarAlerta : value
+            }
+        },
+        {
+            returnDocument:"after",
+        }
+    );
+    return res;
+};
+
+exports.updateAlertSent = async(partogramaId, id) => {
+    const res = await AlertaAntibioticoprofilaxia.findOneAndUpdate(
+        {partogramaId: {$eq: partogramaId}, _id: {$eq: id}},
+        {
+            $set: {
+                dtUltimaAtualizacao : new Date(Date.now()),
+                alertaEnviado : true
             }
         },
         {

@@ -26,3 +26,15 @@ exports.post = async(req, res, next) => {
         })
     }
 };
+
+exports.put = async(req, res, next) => {
+    try{    
+        var result = await service.updateAlertSent(req.body.partogramaId, req.body._id);
+        res.status(200).send(result);
+    }
+    catch(e){
+        res.status(500).send({
+        message: 'Falha ao processar sua requisição:' + e.message,
+        })
+    }
+};

@@ -25,23 +25,40 @@ exports.insert = (partogramaId, key, value) => {
 exports.checkRule = async (partogramaId) => {
     try{
         const result = await repository.getPartogramaId(partogramaId)
-        var obj = new AlertaAntibioticoprofilaxia(result);
-        
-        if(
-            (
-                (isNotNullOrEmpty(obj.inicioTrabalhoParto) || isNotNullOrEmpty(obj.dtHoraRompimentoBolsa))
-            ) &&
-            (
-                 (obj.statusEGB === 'Positivo') ||
-                 (obj.statusEGB === 'Negativo' && (obj.doencaInvasiva === true || obj.bacteriuria === true)) ||
-                 (obj.statusEGB === 'Desconhecido' && ((obj.doencaInvasiva === true || obj.bacteriuria === true || obj.febreIntraparto === true || horasBolsa(obj.dtHoraRompimentoBolsa) >= 18 || obj.idadeGestacionalSemanas < '37')))
-            )
-          ){
-                const res = await repository.updateAlert(partogramaId);
-                return res;
-            }
 
+        if(result){
+            var obj = new AlertaAntibioticoprofilaxia(result);
+        
+            if(
+                (
+                    (isNotNullOrEmpty(obj.inicioTrabalhoParto) || isNotNullOrEmpty(obj.dtHoraRompimentoBolsa))
+                ) &&
+                (
+                     (obj.statusEGB === 'Positivo') ||
+                     (obj.statusEGB === 'Negativo' && (obj.doencaInvasiva === true || obj.bacteriuria === true)) ||
+                     (obj.statusEGB === 'Desconhecido' && ((obj.doencaInvasiva === true || obj.bacteriuria === true || obj.febreIntraparto === true || horasBolsa(obj.dtHoraRompimentoBolsa) >= 18 || obj.idadeGestacionalSemanas < '37')))
+                )
+              ){
+                    const res = await repository.updateSendAlert(partogramaId, true);
+                    return res;
+                }
+                else{
+                    const res = await repository.updateSendAlert(partogramaId, false);
+                    return res;
+                }
+        }
+        else{
             return result;
+        }
+    }
+    catch(e){
+        return 'Falha ao processar sua requisição:' + e.message;
+    }
+};
+
+exports.updateAlertSent = (partogramaId, id) => {
+    try{
+        var result = repository.updateAlertSent(partogramaId, id)
     }
     catch(e){
         return 'Falha ao processar sua requisição:' + e.message;
